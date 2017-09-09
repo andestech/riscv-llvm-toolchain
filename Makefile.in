@@ -57,4 +57,4 @@ install-riscv-gnu-toolchain: stamps/build-riscv-gnu-toolchain
 	$(MAKE) -C riscv-gnu-toolchain install
 
 clean:
-	rm -rf stamps
+	rm -rf stamps riscv-gnu-toolchain build-llvm
