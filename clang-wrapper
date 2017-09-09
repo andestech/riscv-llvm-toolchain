@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+SYSROOT=`dirname $0`/../sysroot
+CLANG=`dirname $0`/@CLANG@
+TARGET=@TARGET@
+ARCH=@ARCH@
+
+$CLANG --sysroot=$SYSROOT --target=$TARGET -march=$ARCH "$@"
