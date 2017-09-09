@@ -1,0 +1,26 @@
+AC_INIT(riscv-llvm-toolchain, 1.0)
+
+#AC_PROG_CC
+
+AC_PATH_PROG([CMAKE], [cmake],
+        [AC_MSG_ERROR([cmake not found])])
+
+AC_SUBST(CMAKE)
+
+AC_ARG_WITH(arch,
+	[AS_HELP_STRING([--with-arch=rv64imac],
+		[Sets the base RISC-V ISA, defaults to rv64imac])],
+        [AS_CASE([$with_arch],
+                [*rv*g* | *rv*d* | *rv*f*], [AC_MSG_ERROR([Unsupport F/D yet])],
+                [*rv32* | *rv64*], [],
+                [AC_MSG_ERROR([Unknown arch])])],
+	[with_arch=rv64imac]
+	)
+
+AC_SUBST(WITH_ARCH, --with-arch=$with_arch)
+
+AC_CONFIG_SUBDIRS(riscv-gnu-toolchain)
+
+AC_CONFIG_FILES([Makefile])
+
+AC_OUTPUT

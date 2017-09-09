@@ -1,0 +1,50 @@
+srcdir := @abs_top_srcdir@
+builddir := @abs_top_builddir@
+INSTALL_DIR := @prefix@
+
+WITH_ARCH ?= @WITH_ARCH@
+SYSROOT := $(INSTALL_DIR)/sysroot
+CMAKE := @CMAKE@
+
+XLEN := $(shell echo $(WITH_ARCH) | tr A-Z a-z | sed 's/.*rv\([0-9]*\).*/\1/')
+ifneq ($(XLEN),32)
+        XLEN := 64
+endif
+
+make_tuple = riscv$(1)-unknown-$(2)
+NEWLIB_TUPLE ?= $(call make_tuple,$(XLEN),elf)
+
+all: stamps/build-llvm stamps/build-riscv-gnu-toolchain
+
+install: install-llvm install-riscv-gnu-toolchain
+
+stamps/configure-llvm: $(srcdir)/riscv-llvm $(srcdir)/riscv-clang
+	mkdir -p build-llvm
+	cd build-llvm && \
+	$(CMAKE) $(srcdir)/riscv-llvm \
+		-DCMAKE_INSTALL_PREFIX=$(INSTALL_DIR) \
+		-DLLVM_EXTERNAL_CLANG_SOURCE_DIR=$(srcdir)/riscv-clang \
+		-DLLVM_BINUTILS_INCDIR=$(srcdir)/riscv-gnu-toolchain/riscv-binutils-gdb/include \
+		-DLLVM_TARGETS_TO_BUILD=RISCV \
+		-DLLVM_DEFAULT_TARGET_TRIPLE=$(NEWLIB_TUPLE)
+	mkdir -p $(dir $@) && touch $@
+
+all-llvm: stamps/configure-llvm
+	cd build-llvm && $(MAKE)
+
+install-llvm: all-llvm $(SYSROOT)
+	cd build-llvm && $(MAKE) install
+
+$(SYSROOT): stamps/build-riscv-gnu-toolchain
+	mkdir -p $(SYSROOT)
+	ln -s -r $(INSTALL_DIR)/$(NEWLIB_TUPLE)/ $(SYSROOT)/usr
+
+stamps/build-riscv-gnu-toolchain:
+	$(MAKE) -C riscv-gnu-toolchain
+	mkdir -p $(dir $@) && touch $@
+
+install-riscv-gnu-toolchain: stamps/build-riscv-gnu-toolchain
+	$(MAKE) -C riscv-gnu-toolchain install
+
+clean:
+	rm -rf stamps
