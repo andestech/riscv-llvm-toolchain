@@ -3,6 +3,7 @@ builddir := @abs_top_builddir@
 INSTALL_DIR := @prefix@
 
 WITH_ARCH ?= @WITH_ARCH@
+BUILD_TYPE ?= @WITH_BUILD_TYPE@
 SYSROOT := $(INSTALL_DIR)/sysroot
 CMAKE := @CMAKE@
 
@@ -26,7 +27,8 @@ stamps/configure-llvm: $(srcdir)/riscv-llvm $(srcdir)/riscv-clang
 		-DLLVM_EXTERNAL_CLANG_SOURCE_DIR=$(srcdir)/riscv-clang \
 		-DLLVM_BINUTILS_INCDIR=$(srcdir)/riscv-gnu-toolchain/riscv-binutils-gdb/include \
 		-DLLVM_TARGETS_TO_BUILD=RISCV \
-		-DLLVM_DEFAULT_TARGET_TRIPLE=$(NEWLIB_TUPLE)
+		-DLLVM_DEFAULT_TARGET_TRIPLE=$(NEWLIB_TUPLE) \
+		-DCMAKE_BUILD_TYPE=$(BUILD_TYPE)
 	mkdir -p $(dir $@) && touch $@
 
 all-llvm: stamps/configure-llvm

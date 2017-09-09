@@ -17,7 +17,19 @@ AC_ARG_WITH(arch,
 	[with_arch=rv64imac]
 	)
 
-AC_SUBST(WITH_ARCH, --with-arch=$with_arch)
+AC_SUBST(WITH_ARCH, $with_arch)
+
+AC_ARG_WITH(build_type,
+	[AS_HELP_STRING([--with-build-type=RelWithDebInfo],
+		[Set the build type for LLVM, defaults to RelWithDebInfo])],
+        [AS_CASE([$with_build_type],
+                [Release | Debug | RelWithDebInfo | MinSizeRel], [],
+                [AC_MSG_ERROR([Unknown build type, Possible values are Release, Debug, RelWithDebInfo and MinSizeRel.])])],
+	[with_build_type=RelWithDebInfo]
+	)
+
+AC_SUBST(WITH_BUILD_TYPE, $with_build_type)
+
 
 AC_CONFIG_SUBDIRS(riscv-gnu-toolchain)
 
