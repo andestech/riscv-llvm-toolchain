@@ -17,6 +17,8 @@ NEWLIB_TUPLE ?= $(call make_tuple,$(XLEN),elf)
 
 CLANG_WRAPPERS := $(addprefix $(INSTALL_DIR)/bin/$(NEWLIB_TUPLE)-, clang clang++)
 
+install: install-llvm install-riscv-gnu-toolchain
+
 all: all-llvm stamps/build-riscv-gnu-toolchain
 
 $(INSTALL_DIR)/bin/$(NEWLIB_TUPLE)-%: build-llvm/bin/%
@@ -24,8 +26,6 @@ $(INSTALL_DIR)/bin/$(NEWLIB_TUPLE)-%: build-llvm/bin/%
 	sed -i 's/@CLANG@/$(notdir $<)/' $@
 	sed -i 's/@TARGET@/$(NEWLIB_TUPLE)/' $@
 	sed -i 's/@ARCH@/$(WITH_ARCH)/' $@
-
-install: install-llvm install-riscv-gnu-toolchain
 
 stamps/configure-llvm: $(srcdir)/riscv-llvm $(srcdir)/riscv-clang
 	mkdir -p build-llvm
