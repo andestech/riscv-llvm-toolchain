@@ -10,3 +10,6 @@
 [submodule "riscv-gnu-toolchain"]
 	path = riscv-gnu-toolchain
 	url = ../riscv-gnu-toolchain
+[submodule "extern-gcc-testsuite"]
+	path = extern-gcc-testsuite
+	url = ../extern-gcc-testsuite
