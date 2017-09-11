@@ -1,0 +1,12 @@
+[submodule "riscv-clang"]
+	path = riscv-clang
+	url = ../riscv-clang
+[submodule "riscv-llvm"]
+	path = riscv-llvm
+	url = ../riscv-llvm
+[submodule "riscv-compiler-rt"]
+	path = riscv-compiler-rt
+	url = ../riscv-compiler-rt/
+[submodule "riscv-gnu-toolchain"]
+	path = riscv-gnu-toolchain
+	url = ../riscv-gnu-toolchain
