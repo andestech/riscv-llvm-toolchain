@@ -77,3 +77,7 @@ gcc-testsuite/Makefile: riscv-gnu-toolchain/stamps/build-qemu
 
 check: gcc-testsuite/Makefile
 	cd gcc-testsuite && $(MAKE) all-parallel
+	cd gcc-testsuite && $(MAKE) filter
+	cp gcc-testsuite/gcc.log gcc-testsuite/gcc.log.filter \
+	   gcc-testsuite/gcc.sum gcc-testsuite/gcc.sum.filter
+	   .
