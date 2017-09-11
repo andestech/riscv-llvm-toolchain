@@ -61,3 +61,19 @@ install-riscv-gnu-toolchain: stamps/build-riscv-gnu-toolchain
 
 clean:
 	rm -rf stamps riscv-gnu-toolchain build-llvm
+
+riscv-gnu-toolchain/stamps/build-qemu:
+	$(MAKE) -C riscv-gnu-toolchain stamps/build-qemu
+
+gcc-testsuite/Makefile: riscv-gnu-toolchain/stamps/build-qemu
+	mkdir -p $(dir $@)
+	cd $(dir $@) && \
+	$(srcdir)/extern-gcc-testsuite/configure \
+		--with-target-cc=$(INSTALL_DIR)/bin/$(NEWLIB_TUPLE)-clang \
+		--with-target-cxx=$(INSTALL_DIR)/bin/$(NEWLIB_TUPLE)-clang++ \
+		--target=$(NEWLIB_TUPLE) \
+		--with-target-sim=$(INSTALL_DIR)/bin/qemu-riscv$(XLEN) \
+		--with-target-board=riscv-sim
+
+check: gcc-testsuite/Makefile
+	cd gcc-testsuite && $(MAKE) all-parallel
