@@ -8,13 +8,13 @@ AC_PATH_PROG([CMAKE], [cmake],
 AC_SUBST(CMAKE)
 
 AC_ARG_WITH(arch,
-	[AS_HELP_STRING([--with-arch=rv64imac],
-		[Sets the base RISC-V ISA, defaults to rv64imac])],
+	[AS_HELP_STRING([--with-arch=rv64ima],
+		[Sets the base RISC-V ISA, defaults to rv64ima])],
         [AS_CASE([$with_arch],
                 [*rv*g* | *rv*d* | *rv*f*], [AC_MSG_ERROR([Unsupport F/D yet])],
                 [*rv32* | *rv64*], [],
                 [AC_MSG_ERROR([Unknown arch])])],
-	[with_arch=rv64imac]
+	[with_arch=rv64ima]
 	)
 
 AC_SUBST(WITH_ARCH, $with_arch)

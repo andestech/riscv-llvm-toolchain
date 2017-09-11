@@ -1256,7 +1256,7 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-arch=rv64imac    Sets the base RISC-V ISA, defaults to rv64imac
+  --with-arch=rv64ima     Sets the base RISC-V ISA, defaults to rv64ima
   --with-build-type=RelWithDebInfo
                           Set the build type for LLVM, defaults to
                           RelWithDebInfo
@@ -1748,7 +1748,7 @@ if test "${with_arch+set}" = set; then :
     as_fn_error $? "Unknown arch" "$LINENO" 5 ;;
 esac
 else
-  with_arch=rv64imac
+  with_arch=rv64ima
 
 fi
 
