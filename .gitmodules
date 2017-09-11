@@ -9,7 +9,7 @@
 	url = ../riscv-compiler-rt/
 [submodule "riscv-gnu-toolchain"]
 	path = riscv-gnu-toolchain
-	url = ../riscv-gnu-toolchain
+	url = https://github.com/riscv/riscv-gnu-toolchain.git
 [submodule "extern-gcc-testsuite"]
 	path = extern-gcc-testsuite
 	url = ../extern-gcc-testsuite
