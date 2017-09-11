@@ -27,6 +27,9 @@ $(INSTALL_DIR)/bin/$(NEWLIB_TUPLE)-%: build-llvm/bin/%
 	sed -i 's/@TARGET@/$(NEWLIB_TUPLE)/' $@
 	sed -i 's/@ARCH@/$(WITH_ARCH)/' $@
 
+build-llvm/bin/clang: all-llvm
+build-llvm/bin/clang++: all-llvm
+
 stamps/configure-llvm: $(srcdir)/riscv-llvm $(srcdir)/riscv-clang
 	mkdir -p build-llvm
 	cd build-llvm && \
