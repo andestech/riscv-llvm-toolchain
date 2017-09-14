@@ -1774,7 +1774,7 @@ fi
 WITH_BUILD_TYPE=$with_build_type
 
 
-
+ac_configure_args="$ac_configure_args --with-arch=$with_arch"
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
   if test -f "$ac_dir/install-sh"; then

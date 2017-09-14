@@ -30,7 +30,7 @@ AC_ARG_WITH(build_type,
 
 AC_SUBST(WITH_BUILD_TYPE, $with_build_type)
 
-
+ac_configure_args="$ac_configure_args --with-arch=$with_arch"
 AC_CONFIG_SUBDIRS(riscv-gnu-toolchain)
 
 AC_CONFIG_FILES([Makefile])
