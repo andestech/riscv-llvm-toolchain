@@ -29,6 +29,10 @@ environment.  To build the 32-bit RV32IMC toolchain, use:
 Supported architectures are rv32i or rv64i plus standard extensions (a)tomics,
 (m)ultiplication and division.
 
+### Usage
+
+You can found a LLVM toolchain in your install path, we recommand you use `riscv32-elf-unknown-clang` (or `riscv64-elf-unknown-clang` for RV64) to compile program just like `riscv32-elf-unknown-gcc` instead of use clang directly.
+
 ### Advanced Options
 
 There are a number of additional options that may be passed to
