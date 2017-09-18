@@ -60,7 +60,8 @@ install-riscv-gnu-toolchain: stamps/build-riscv-gnu-toolchain
 	$(MAKE) -C riscv-gnu-toolchain install
 
 clean:
-	rm -rf stamps riscv-gnu-toolchain build-llvm
+	cd riscv-gnu-toolchain && $(MAKE) clean
+	rm -rf stamps build-llvm
 
 riscv-gnu-toolchain/stamps/build-qemu:
 	$(MAKE) -C riscv-gnu-toolchain stamps/build-qemu
