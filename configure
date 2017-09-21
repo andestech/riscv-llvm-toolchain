@@ -1257,9 +1257,10 @@ Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-arch=rv64ima     Sets the base RISC-V ISA, defaults to rv64ima
-  --with-build-type=RelWithDebInfo
-                          Set the build type for LLVM, defaults to
-                          RelWithDebInfo
+  --with-build-type=Release
+                          Set the build type for LLVM, defaults to Release,
+                          Possible values are Release, Debug, RelWithDebInfo
+                          and MinSizeRel.
 
 Report bugs to the package provider.
 _ACEOF
@@ -1766,7 +1767,7 @@ if test "${with_build_type+set}" = set; then :
     as_fn_error $? "Unknown build type, Possible values are Release, Debug, RelWithDebInfo and MinSizeRel." "$LINENO" 5 ;;
 esac
 else
-  with_build_type=RelWithDebInfo
+  with_build_type=Release
 
 fi
 
