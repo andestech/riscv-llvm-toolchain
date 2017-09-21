@@ -6,10 +6,19 @@ WITH_ARCH ?= @WITH_ARCH@
 BUILD_TYPE ?= @WITH_BUILD_TYPE@
 SYSROOT := $(INSTALL_DIR)/sysroot
 CMAKE := @CMAKE@
+BUILD_CLANG_ONLY := @BUILD_CLANG_ONLY@
 
 XLEN := $(shell echo $(WITH_ARCH) | tr A-Z a-z | sed 's/.*rv\([0-9]*\).*/\1/')
 ifneq ($(XLEN),32)
         XLEN := 64
+endif
+
+ifeq ($(BUILD_CLANG_ONLY),no)
+  LLVM_BUILD_TARGET   :=all
+  LLVM_INSTALL_TARGET :=install
+else
+  LLVM_BUILD_TARGET   :=clang
+  LLVM_INSTALL_TARGET := install-clang
 endif
 
 make_tuple = riscv$(1)-unknown-$(2)
@@ -43,10 +52,10 @@ stamps/configure-llvm: $(srcdir)/riscv-llvm $(srcdir)/riscv-clang
 	mkdir -p $(dir $@) && touch $@
 
 all-llvm: stamps/configure-llvm
-	cd build-llvm && $(MAKE)
+	cd build-llvm && $(MAKE) $(LLVM_BUILD_TARGET)
 
 install-llvm: all-llvm $(SYSROOT) $(CLANG_WRAPPERS)
-	cd build-llvm && $(MAKE) install
+	cd build-llvm && $(MAKE) $(LLVM_INSTALL_TARGET)
 
 $(SYSROOT): stamps/build-riscv-gnu-toolchain
 	mkdir -p $(SYSROOT)

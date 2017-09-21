@@ -30,6 +30,14 @@ AC_ARG_WITH(build_type,
 
 AC_SUBST(WITH_BUILD_TYPE, $with_build_type)
 
+AC_ARG_ENABLE(clang_only,
+	[AS_HELP_STRING([--enable-clang-only=no],
+		[Install clang only, and do not install another llvm tool and libraries])])
+
+AS_IF([test "x$enable_clang_only" != "xyes"],
+      AC_SUBST(BUILD_CLANG_ONLY, no),
+      AC_SUBST(BUILD_CLANG_ONLY, yes))
+
 ac_configure_args="$ac_configure_args --with-arch=$with_arch"
 AC_CONFIG_SUBDIRS(riscv-gnu-toolchain)
 
