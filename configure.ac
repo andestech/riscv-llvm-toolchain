@@ -21,7 +21,7 @@ AC_SUBST(WITH_ARCH, $with_arch)
 
 AC_ARG_WITH(build_type,
 	[AS_HELP_STRING([--with-build-type=RelWithDebInfo],
-		[Set the build type for LLVM, defaults to RelWithDebInfo])],
+		[Set the build type for LLVM, defaults to RelWithDebInfo, Possible values are Release, Debug, RelWithDebInfo and MinSizeRel.])],
         [AS_CASE([$with_build_type],
                 [Release | Debug | RelWithDebInfo | MinSizeRel], [],
                 [AC_MSG_ERROR([Unknown build type, Possible values are Release, Debug, RelWithDebInfo and MinSizeRel.])])],
